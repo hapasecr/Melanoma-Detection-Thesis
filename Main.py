@@ -22,8 +22,8 @@ def __showImages(lstofimgs):
             cv2.imwrite(tpls[2], tpls[0])
         else:
             continue
-    cv2.waitKey(1000)
-    cv2.destroyAllWindows()
+    # cv2.waitKey(1000)
+    # cv2.destroyAllWindows()
 
 # A function for showing GLCM(gray-level co-occurrence matrix) texture feature of an image. Mainly used in Haralick Feature Extraction.
 def __showGLCM(feobj):
@@ -105,7 +105,7 @@ def __showGaborPhysicalFeatures(feobj3):
     print("Color-Variance of lesion %f \n" % feobj3.getColorVariance())
 
 # Creating Training Sets from a collection of various skin-lesion images placed in their respective
-# class folders i.e., 'images/benign', 'images/malignant', 'images/negative'. These images are pre-processed 
+# class folders i.e., 'images/benign', 'images/malignant', 'images/negative'. These images are pre-processed
 # and a set of quantified-features are extracted from them, which comprises the 'training-set' data.
 def __createDataSet(restype, img_num):
     print("------------------+++++++++++++============FOR %s SET==============++++++++++++++---------------------- \n" % restype.upper())
@@ -387,7 +387,7 @@ def main_menu():
         #    __createDataSet("negative", int(input("Enter the number of images you placed under the \'images/negative\' directory - \n")))
            __createDataSet("malignant", 30)
            __createDataSet("benign", 30)
-           __createDataSet("negative", 10)        
+           __createDataSet("negative", 10)
            print("\'Training-Dataset\' successfully generated!! \n")
            print("This dataset consists of the features-array of the corresponding images and their classified types. \n")
            print("All results are stored in the numpy file \'dataset.npz\'. \n")
