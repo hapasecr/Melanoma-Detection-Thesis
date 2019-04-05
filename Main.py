@@ -105,7 +105,7 @@ def __showGaborPhysicalFeatures(feobj3):
     print("Color-Variance of lesion %f \n" % feobj3.getColorVariance())
 
 # Creating Training Sets from a collection of various skin-lesion images placed in their respective
-# class folders i.e., 'images/benign', 'images/malignant', 'images/negative'. These images are pre-processed 
+# class folders i.e., 'images/benign', 'images/malignant', 'images/negative'. These images are pre-processed
 # and a set of quantified-features are extracted from them, which comprises the 'training-set' data.
 def __createDataSet(restype, img_num):
     print("------------------+++++++++++++============FOR %s SET==============++++++++++++++---------------------- \n" % restype.upper())
@@ -385,9 +385,15 @@ def main_menu():
         #    __createDataSet("malignant", int(input("Enter the number of images you placed under the \'images/malignant\' directory - \n")))
         #    __createDataSet("benign", int(input("Enter the number of images you placed under the \'images/benign\' directory - \n")))
         #    __createDataSet("negative", int(input("Enter the number of images you placed under the \'images/negative\' directory - \n")))
+<<<<<<< HEAD
            __createDataSet("malignant", 1)
            __createDataSet("benign", 1)
            __createDataSet("negative", 1)        
+=======
+           __createDataSet("malignant", 30)
+           __createDataSet("benign", 30)
+           __createDataSet("negative", 10)
+>>>>>>> 3015f326781e10accffe9580f945287bace388d8
            print("\'Training-Dataset\' successfully generated!! \n")
            print("This dataset consists of the features-array of the corresponding images and their classified types. \n")
            print("All results are stored in the numpy file \'dataset.npz\'. \n")
