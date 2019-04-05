@@ -385,15 +385,9 @@ def main_menu():
         #    __createDataSet("malignant", int(input("Enter the number of images you placed under the \'images/malignant\' directory - \n")))
         #    __createDataSet("benign", int(input("Enter the number of images you placed under the \'images/benign\' directory - \n")))
         #    __createDataSet("negative", int(input("Enter the number of images you placed under the \'images/negative\' directory - \n")))
-<<<<<<< HEAD
-           __createDataSet("malignant", 1)
-           __createDataSet("benign", 1)
-           __createDataSet("negative", 1)        
-=======
            __createDataSet("malignant", 30)
            __createDataSet("benign", 30)
            __createDataSet("negative", 10)
->>>>>>> 3015f326781e10accffe9580f945287bace388d8
            print("\'Training-Dataset\' successfully generated!! \n")
            print("This dataset consists of the features-array of the corresponding images and their classified types. \n")
            print("All results are stored in the numpy file \'dataset.npz\'. \n")
