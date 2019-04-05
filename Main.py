@@ -22,8 +22,8 @@ def __showImages(lstofimgs):
             cv2.imwrite(tpls[2], tpls[0])
         else:
             continue
-    cv2.waitKey(1000)
-    cv2.destroyAllWindows()
+    # cv2.waitKey(1000)
+    # cv2.destroyAllWindows()
 
 # A function for showing GLCM(gray-level co-occurrence matrix) texture feature of an image. Mainly used in Haralick Feature Extraction.
 def __showGLCM(feobj):
@@ -125,19 +125,19 @@ def __createDataSet(restype, img_num):
          feobj2 = tam.TamFeat(obj.getSegGrayImg())
          feobj3 = g.Gabor(obj.getSegGrayImg(), obj.getSegColImg())
          feobj4 = k.KingFeat(obj.getSegGrayImg())
-         __showImages([(obj.getActImg(), 'imgcol' + str(imgcount), 'results/dataset/' + restype + '/' + str(imgcount) + '/' + 'imgcol' + str(imgcount) + '.jpg'),
-                       (obj.getGrayImg(), 'imggray' + str(imgcount), 'results/dataset/' + restype + '/' + str(imgcount) + '/' + 'imggray' + str(imgcount) + '.jpg'),
-                       (obj.getInvrtGrayImg(), 'imggrayinvrt' + str(imgcount), 'results/dataset/' + restype + '/' + str(imgcount) + '/' + 'imggrayinvrt' + str(imgcount) + '.jpg'),
-                       (obj.getBinaryImg(), 'imgbin' + str(imgcount), 'results/dataset/' + restype + '/' + str(imgcount) + '/' + 'imgbin' + str(imgcount) + '.jpg'),
-                       (obj.getSegColImg(), 'segimgcol' + str(imgcount), 'results/dataset/' + restype + '/' + str(imgcount) + '/' + 'segimgcol' + str(imgcount) + '.jpg'),
-                       (obj.getSegGrayImg(), 'segimggray' + str(imgcount), 'results/dataset/' + restype + '/' + str(imgcount) + '/' + 'segimggray' + str(imgcount) + '.jpg'),
-                       (feobj2.getPrewittHorizontalEdgeImg(), 'PrewittX' + str(imgcount), 'results/dataset/' + restype + '/' + str(imgcount) + '/' + 'PrewittX' + str(imgcount) + '.jpg'),
-                       (feobj2.getPrewittVerticalEdgeImg(), 'PrewittY' + str(imgcount), 'results/dataset/' + restype + '/' + str(imgcount) + '/' + 'PrewittY' + str(imgcount) + '.jpg'),
-                       (feobj2.getCombinedPrewittImg(), 'PrewittIMG' + str(imgcount), 'results/dataset/' + restype + '/' + str(imgcount) + '/' + 'PrewittIMG' + str(imgcount) + '.jpg'),
-                       (feobj3.getGaussianBlurredImage(), 'gblurimg' + str(imgcount), 'results/dataset/' + restype + '/' + str(imgcount) + '/' + 'gblurimg' + str(imgcount) + '.jpg'),
-                       (feobj3.getSelectedContourImg(), 'slccntimg' + str(imgcount), 'results/dataset/' + restype + '/' + str(imgcount) + '/' + 'slccntimg' + str(imgcount) + '.jpg'),
-                       (feobj3.getBoundingRectImg(), 'bndrectimg' + str(imgcount), 'results/dataset/' + restype + '/' + str(imgcount) + '/' + 'bndrectimg' + str(imgcount) + '.jpg'),
-                       (feobj3.getBoundedCircImg(), 'bndcircimg' + str(imgcount), 'results/dataset/' + restype + '/' + str(imgcount) + '/' + 'bndcircimg' + str(imgcount) + '.jpg')])
+         __showImages([(obj.getActImg(), 'imgcol' + str(i), 'results/dataset/' + restype + '/' + str(i) + '/' + 'imgcol' + str(i) + '.jpg'),
+                       (obj.getGrayImg(), 'imggray' + str(i), 'results/dataset/' + restype + '/' + str(i) + '/' + 'imggray' + str(i) + '.jpg'),
+                       (obj.getInvrtGrayImg(), 'imggrayinvrt' + str(i), 'results/dataset/' + restype + '/' + str(i) + '/' + 'imggrayinvrt' + str(i) + '.jpg'),
+                       (obj.getBinaryImg(), 'imgbin' + str(i), 'results/dataset/' + restype + '/' + str(i) + '/' + 'imgbin' + str(i) + '.jpg'),
+                       (obj.getSegColImg(), 'segimgcol' + str(i), 'results/dataset/' + restype + '/' + str(i) + '/' + 'segimgcol' + str(i) + '.jpg'),
+                       (obj.getSegGrayImg(), 'segimggray' + str(i), 'results/dataset/' + restype + '/' + str(i) + '/' + 'segimggray' + str(i) + '.jpg'),
+                       (feobj2.getPrewittHorizontalEdgeImg(), 'PrewittX' + str(i), 'results/dataset/' + restype + '/' + str(i) + '/' + 'PrewittX' + str(i) + '.jpg'),
+                       (feobj2.getPrewittVerticalEdgeImg(), 'PrewittY' + str(i), 'results/dataset/' + restype + '/' + str(i) + '/' + 'PrewittY' + str(i) + '.jpg'),
+                       (feobj2.getCombinedPrewittImg(), 'PrewittIMG' + str(i), 'results/dataset/' + restype + '/' + str(i) + '/' + 'PrewittIMG' + str(i) + '.jpg'),
+                       (feobj3.getGaussianBlurredImage(), 'gblurimg' + str(i), 'results/dataset/' + restype + '/' + str(i) + '/' + 'gblurimg' + str(i) + '.jpg'),
+                       (feobj3.getSelectedContourImg(), 'slccntimg' + str(i), 'results/dataset/' + restype + '/' + str(i) + '/' + 'slccntimg' + str(i) + '.jpg'),
+                       (feobj3.getBoundingRectImg(), 'bndrectimg' + str(i), 'results/dataset/' + restype + '/' + str(i) + '/' + 'bndrectimg' + str(i) + '.jpg'),
+                       (feobj3.getBoundedCircImg(), 'bndcircimg' + str(i), 'results/dataset/' + restype + '/' + str(i) + '/' + 'bndcircimg' + str(i) + '.jpg')])
         #  __showHaralickFeatures(feobj)
         #  __showTamuraFeatures(feobj2)
         #  __showKingsFeatures(feobj4)
@@ -385,9 +385,9 @@ def main_menu():
         #    __createDataSet("malignant", int(input("Enter the number of images you placed under the \'images/malignant\' directory - \n")))
         #    __createDataSet("benign", int(input("Enter the number of images you placed under the \'images/benign\' directory - \n")))
         #    __createDataSet("negative", int(input("Enter the number of images you placed under the \'images/negative\' directory - \n")))
-           __createDataSet("malignant", 30)
-           __createDataSet("benign", 30)
-           __createDataSet("negative", 10)        
+           __createDataSet("malignant", 1)
+           __createDataSet("benign", 1)
+           __createDataSet("negative", 1)        
            print("\'Training-Dataset\' successfully generated!! \n")
            print("This dataset consists of the features-array of the corresponding images and their classified types. \n")
            print("All results are stored in the numpy file \'dataset.npz\'. \n")
