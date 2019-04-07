@@ -29,7 +29,7 @@ class folders i.e., 'images/benign', 'images/malignant', 'images/negative'. Thes
 and a set of quantified-features are extracted from them, which comprises the 'training-set' data.
 '''
 def __createDataSet(restype, img_num):
-    print("------------------+++++++++++++============FOR %s SET==============++++++++++++++---------------------- \n" % restype.upper())
+    print("=====FOR %s SET===== \n" % restype.upper())
     if (((pathlib.Path('dataset.npz')).exists() == True) & ((pathlib.Path('dataset.npz')).is_file() == True)):
         dset, featnames = (np.load('dataset.npz'))['dset'], (np.load('dataset.npz'))['featnames']
     else:
@@ -44,19 +44,19 @@ def __createDataSet(restype, img_num):
          feobj2 = tam.TamFeat(obj.getSegGrayImg())
          feobj3 = g.Gabor(obj.getSegGrayImg(), obj.getSegColImg())
          feobj4 = k.KingFeat(obj.getSegGrayImg())
-         __showImages([(obj.getActImg(), 'imgcol' + str(i), 'results/dataset/' + restype + '/' + str(i) + '/' + 'imgcol' + str(i) + '.jpg'),
-                       (obj.getGrayImg(), 'imggray' + str(i), 'results/dataset/' + restype + '/' + str(i) + '/' + 'imggray' + str(i) + '.jpg'),
-                       (obj.getInvrtGrayImg(), 'imggrayinvrt' + str(i), 'results/dataset/' + restype + '/' + str(i) + '/' + 'imggrayinvrt' + str(i) + '.jpg'),
-                       (obj.getBinaryImg(), 'imgbin' + str(i), 'results/dataset/' + restype + '/' + str(i) + '/' + 'imgbin' + str(i) + '.jpg'),
-                       (obj.getSegColImg(), 'segimgcol' + str(i), 'results/dataset/' + restype + '/' + str(i) + '/' + 'segimgcol' + str(i) + '.jpg'),
-                       (obj.getSegGrayImg(), 'segimggray' + str(i), 'results/dataset/' + restype + '/' + str(i) + '/' + 'segimggray' + str(i) + '.jpg'),
-                       (feobj2.getPrewittHorizontalEdgeImg(), 'PrewittX' + str(i), 'results/dataset/' + restype + '/' + str(i) + '/' + 'PrewittX' + str(i) + '.jpg'),
-                       (feobj2.getPrewittVerticalEdgeImg(), 'PrewittY' + str(i), 'results/dataset/' + restype + '/' + str(i) + '/' + 'PrewittY' + str(i) + '.jpg'),
-                       (feobj2.getCombinedPrewittImg(), 'PrewittIMG' + str(i), 'results/dataset/' + restype + '/' + str(i) + '/' + 'PrewittIMG' + str(i) + '.jpg'),
-                       (feobj3.getGaussianBlurredImage(), 'gblurimg' + str(i), 'results/dataset/' + restype + '/' + str(i) + '/' + 'gblurimg' + str(i) + '.jpg'),
-                       (feobj3.getSelectedContourImg(), 'slccntimg' + str(i), 'results/dataset/' + restype + '/' + str(i) + '/' + 'slccntimg' + str(i) + '.jpg'),
-                       (feobj3.getBoundingRectImg(), 'bndrectimg' + str(i), 'results/dataset/' + restype + '/' + str(i) + '/' + 'bndrectimg' + str(i) + '.jpg'),
-                       (feobj3.getBoundedCircImg(), 'bndcircimg' + str(i), 'results/dataset/' + restype + '/' + str(i) + '/' + 'bndcircimg' + str(i) + '.jpg')])
+        #  __showImages([(obj.getActImg(), 'imgcol' + str(i), 'results/dataset/' + restype + '/' + str(i) + '/' + 'imgcol' + str(i) + '.jpg'),
+        #                (obj.getGrayImg(), 'imggray' + str(i), 'results/dataset/' + restype + '/' + str(i) + '/' + 'imggray' + str(i) + '.jpg'),
+        #                (obj.getInvrtGrayImg(), 'imggrayinvrt' + str(i), 'results/dataset/' + restype + '/' + str(i) + '/' + 'imggrayinvrt' + str(i) + '.jpg'),
+        #                (obj.getBinaryImg(), 'imgbin' + str(i), 'results/dataset/' + restype + '/' + str(i) + '/' + 'imgbin' + str(i) + '.jpg'),
+        #                (obj.getSegColImg(), 'segimgcol' + str(i), 'results/dataset/' + restype + '/' + str(i) + '/' + 'segimgcol' + str(i) + '.jpg'),
+        #                (obj.getSegGrayImg(), 'segimggray' + str(i), 'results/dataset/' + restype + '/' + str(i) + '/' + 'segimggray' + str(i) + '.jpg'),
+        #                (feobj2.getPrewittHorizontalEdgeImg(), 'PrewittX' + str(i), 'results/dataset/' + restype + '/' + str(i) + '/' + 'PrewittX' + str(i) + '.jpg'),
+        #                (feobj2.getPrewittVerticalEdgeImg(), 'PrewittY' + str(i), 'results/dataset/' + restype + '/' + str(i) + '/' + 'PrewittY' + str(i) + '.jpg'),
+        #                (feobj2.getCombinedPrewittImg(), 'PrewittIMG' + str(i), 'results/dataset/' + restype + '/' + str(i) + '/' + 'PrewittIMG' + str(i) + '.jpg'),
+        #                (feobj3.getGaussianBlurredImage(), 'gblurimg' + str(i), 'results/dataset/' + restype + '/' + str(i) + '/' + 'gblurimg' + str(i) + '.jpg'),
+        #                (feobj3.getSelectedContourImg(), 'slccntimg' + str(i), 'results/dataset/' + restype + '/' + str(i) + '/' + 'slccntimg' + str(i) + '.jpg'),
+        #                (feobj3.getBoundingRectImg(), 'bndrectimg' + str(i), 'results/dataset/' + restype + '/' + str(i) + '/' + 'bndrectimg' + str(i) + '.jpg'),
+        #                (feobj3.getBoundedCircImg(), 'bndcircimg' + str(i), 'results/dataset/' + restype + '/' + str(i) + '/' + 'bndcircimg' + str(i) + '.jpg')])
          featarr = np.empty(0, dtype=float, order='C')
          featarr = np.insert(featarr, featarr.size, feobj.getAngularSecondMomentASM(), 0)
          featarr = np.insert(featarr, featarr.size, feobj.getEnergy(), 0)
@@ -118,19 +118,19 @@ def __getTestImages():
         feobj2 = tam.TamFeat(obj.getSegGrayImg())
         feobj3 = g.Gabor(obj.getSegGrayImg(), obj.getSegColImg())
         feobj4 = k.KingFeat(obj.getSegGrayImg())
-        __showImages([(obj.getActImg(), 'imgcol' + str(count), 'results/testset/' + str(count) + '/' + 'imgcol' + str(count) + '.jpg'),
-                      (obj.getGrayImg(), 'imggray' + str(count), 'results/testset/' + str(count) + '/' + 'imggray' + str(count) + '.jpg'),
-                      (obj.getInvrtGrayImg(), 'imggrayinvrt' + str(count), 'results/testset/' + str(count) + '/' + 'imggrayinvrt' + str(count) + '.jpg'),
-                      (obj.getBinaryImg(), 'imgbin' + str(count), 'results/testset/' + str(count) + '/' + 'imgbin' + str(count) + '.jpg'),
-                      (obj.getSegColImg(), 'segimgcol' + str(count), 'results/testset/' + str(count) + '/' + 'segimgcol' + str(count) + '.jpg'),
-                      (obj.getSegGrayImg(), 'segimggray' + str(count), 'results/testset/' + str(count) + '/' + 'segimggray' + str(count) + '.jpg'),
-                      (feobj2.getPrewittHorizontalEdgeImg(), 'PrewittX' + str(count), 'results/testset/' + str(count) + '/' + 'PrewittX' + str(count) + '.jpg'),
-                      (feobj2.getPrewittVerticalEdgeImg(), 'PrewittY' + str(count), 'results/testset/' + str(count) + '/' + 'PrewittY' + str(count) + '.jpg'),
-                      (feobj2.getCombinedPrewittImg(), 'PrewittIMG' + str(count), 'results/testset/' + str(count) + '/' + 'PrewittIMG' + str(count) + '.jpg'),
-                      (feobj3.getGaussianBlurredImage(), 'gblurimg' + str(count), 'results/testset/' + str(count) + '/' + 'gblurimg' + str(count) + '.jpg'),
-                      (feobj3.getSelectedContourImg(), 'slccntimg' + str(count), 'results/testset/' + str(count) + '/' + 'slccntimg' + str(count) + '.jpg'),
-                      (feobj3.getBoundingRectImg(), 'bndrectimg' + str(count), 'results/testset/' + str(count) + '/' + 'bndrectimg' + str(count) + '.jpg'),
-                      (feobj3.getBoundedCircImg(), 'bndcircimg' + str(count), 'results/testset/' + str(count) + '/' + 'bndcircimg' + str(count) + '.jpg')])
+        # __showImages([(obj.getActImg(), 'imgcol' + str(count), 'results/testset/' + str(count) + '/' + 'imgcol' + str(count) + '.jpg'),
+        #               (obj.getGrayImg(), 'imggray' + str(count), 'results/testset/' + str(count) + '/' + 'imggray' + str(count) + '.jpg'),
+        #               (obj.getInvrtGrayImg(), 'imggrayinvrt' + str(count), 'results/testset/' + str(count) + '/' + 'imggrayinvrt' + str(count) + '.jpg'),
+        #               (obj.getBinaryImg(), 'imgbin' + str(count), 'results/testset/' + str(count) + '/' + 'imgbin' + str(count) + '.jpg'),
+        #               (obj.getSegColImg(), 'segimgcol' + str(count), 'results/testset/' + str(count) + '/' + 'segimgcol' + str(count) + '.jpg'),
+        #               (obj.getSegGrayImg(), 'segimggray' + str(count), 'results/testset/' + str(count) + '/' + 'segimggray' + str(count) + '.jpg'),
+        #               (feobj2.getPrewittHorizontalEdgeImg(), 'PrewittX' + str(count), 'results/testset/' + str(count) + '/' + 'PrewittX' + str(count) + '.jpg'),
+        #               (feobj2.getPrewittVerticalEdgeImg(), 'PrewittY' + str(count), 'results/testset/' + str(count) + '/' + 'PrewittY' + str(count) + '.jpg'),
+        #               (feobj2.getCombinedPrewittImg(), 'PrewittIMG' + str(count), 'results/testset/' + str(count) + '/' + 'PrewittIMG' + str(count) + '.jpg'),
+        #               (feobj3.getGaussianBlurredImage(), 'gblurimg' + str(count), 'results/testset/' + str(count) + '/' + 'gblurimg' + str(count) + '.jpg'),
+        #               (feobj3.getSelectedContourImg(), 'slccntimg' + str(count), 'results/testset/' + str(count) + '/' + 'slccntimg' + str(count) + '.jpg'),
+        #               (feobj3.getBoundingRectImg(), 'bndrectimg' + str(count), 'results/testset/' + str(count) + '/' + 'bndrectimg' + str(count) + '.jpg'),
+        #               (feobj3.getBoundedCircImg(), 'bndcircimg' + str(count), 'results/testset/' + str(count) + '/' + 'bndcircimg' + str(count) + '.jpg')])
         featarr = np.empty(0, dtype=float, order='C')
         featarr = np.insert(featarr, featarr.size, feobj.getAngularSecondMomentASM(), 0)
         featarr = np.insert(featarr, featarr.size, feobj.getEnergy(), 0)
@@ -291,7 +291,7 @@ def __printPredResWithProperFormatting(predres, type=None):
         print("FOR RFC - \n Prediction results (String) : " + str(__convertTargetTypeToStr((predres['RFC'])['Prediction Results'])) + " \n Prediction results (raw) : " + str((predres['RFC'])['Prediction Results']) + " \n Prediction Accuracy : " + str((predres['RFC'])['Accuracy'] * 100) + "\n")
 
 def main_menu():
-    print("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^_______WELCOME TO THE MELANOMA-PREDICTION PROGRAM_______^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ \n")
+    print("_______WELCOME TO THE MELANOMA-PREDICTION PROGRAM_______ \n")
     print("\t CRH. \n")
 
     while (True):
