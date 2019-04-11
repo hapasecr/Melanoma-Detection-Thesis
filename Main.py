@@ -18,10 +18,14 @@ A Generic Show Image function which shows the different type of pre-processed se
 '''
 def __showImages(lstofimgs):
     for tpls in lstofimgs:
+        # cv2.namedWindow(tpls[1], cv2.WINDOW_NORMAL)
+        # cv2.imshow(tpls[1], tpls[0])
         if (tpls[2] != None):
             cv2.imwrite(tpls[2], tpls[0])
         else:
             continue
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
 
 '''
 Creating Training Sets from a collection of various skin-lesion images placed in their respective
@@ -44,19 +48,6 @@ def __createDataSet(restype, img_num):
          feobj2 = tam.TamFeat(obj.getSegGrayImg())
          feobj3 = g.Gabor(obj.getSegGrayImg(), obj.getSegColImg())
          feobj4 = k.KingFeat(obj.getSegGrayImg())
-        #  __showImages([(obj.getActImg(), 'imgcol' + str(i), 'results/dataset/' + restype + '/' + str(i) + '/' + 'imgcol' + str(i) + '.jpg'),
-        #                (obj.getGrayImg(), 'imggray' + str(i), 'results/dataset/' + restype + '/' + str(i) + '/' + 'imggray' + str(i) + '.jpg'),
-        #                (obj.getInvrtGrayImg(), 'imggrayinvrt' + str(i), 'results/dataset/' + restype + '/' + str(i) + '/' + 'imggrayinvrt' + str(i) + '.jpg'),
-        #                (obj.getBinaryImg(), 'imgbin' + str(i), 'results/dataset/' + restype + '/' + str(i) + '/' + 'imgbin' + str(i) + '.jpg'),
-        #                (obj.getSegColImg(), 'segimgcol' + str(i), 'results/dataset/' + restype + '/' + str(i) + '/' + 'segimgcol' + str(i) + '.jpg'),
-        #                (obj.getSegGrayImg(), 'segimggray' + str(i), 'results/dataset/' + restype + '/' + str(i) + '/' + 'segimggray' + str(i) + '.jpg'),
-        #                (feobj2.getPrewittHorizontalEdgeImg(), 'PrewittX' + str(i), 'results/dataset/' + restype + '/' + str(i) + '/' + 'PrewittX' + str(i) + '.jpg'),
-        #                (feobj2.getPrewittVerticalEdgeImg(), 'PrewittY' + str(i), 'results/dataset/' + restype + '/' + str(i) + '/' + 'PrewittY' + str(i) + '.jpg'),
-        #                (feobj2.getCombinedPrewittImg(), 'PrewittIMG' + str(i), 'results/dataset/' + restype + '/' + str(i) + '/' + 'PrewittIMG' + str(i) + '.jpg'),
-        #                (feobj3.getGaussianBlurredImage(), 'gblurimg' + str(i), 'results/dataset/' + restype + '/' + str(i) + '/' + 'gblurimg' + str(i) + '.jpg'),
-        #                (feobj3.getSelectedContourImg(), 'slccntimg' + str(i), 'results/dataset/' + restype + '/' + str(i) + '/' + 'slccntimg' + str(i) + '.jpg'),
-        #                (feobj3.getBoundingRectImg(), 'bndrectimg' + str(i), 'results/dataset/' + restype + '/' + str(i) + '/' + 'bndrectimg' + str(i) + '.jpg'),
-        #                (feobj3.getBoundedCircImg(), 'bndcircimg' + str(i), 'results/dataset/' + restype + '/' + str(i) + '/' + 'bndcircimg' + str(i) + '.jpg')])
          featarr = np.empty(0, dtype=float, order='C')
          featarr = np.insert(featarr, featarr.size, feobj.getAngularSecondMomentASM(), 0)
          featarr = np.insert(featarr, featarr.size, feobj.getEnergy(), 0)
@@ -118,19 +109,19 @@ def __getTestImages():
         feobj2 = tam.TamFeat(obj.getSegGrayImg())
         feobj3 = g.Gabor(obj.getSegGrayImg(), obj.getSegColImg())
         feobj4 = k.KingFeat(obj.getSegGrayImg())
-        # __showImages([(obj.getActImg(), 'imgcol' + str(count), 'results/testset/' + str(count) + '/' + 'imgcol' + str(count) + '.jpg'),
-        #               (obj.getGrayImg(), 'imggray' + str(count), 'results/testset/' + str(count) + '/' + 'imggray' + str(count) + '.jpg'),
-        #               (obj.getInvrtGrayImg(), 'imggrayinvrt' + str(count), 'results/testset/' + str(count) + '/' + 'imggrayinvrt' + str(count) + '.jpg'),
-        #               (obj.getBinaryImg(), 'imgbin' + str(count), 'results/testset/' + str(count) + '/' + 'imgbin' + str(count) + '.jpg'),
-        #               (obj.getSegColImg(), 'segimgcol' + str(count), 'results/testset/' + str(count) + '/' + 'segimgcol' + str(count) + '.jpg'),
-        #               (obj.getSegGrayImg(), 'segimggray' + str(count), 'results/testset/' + str(count) + '/' + 'segimggray' + str(count) + '.jpg'),
-        #               (feobj2.getPrewittHorizontalEdgeImg(), 'PrewittX' + str(count), 'results/testset/' + str(count) + '/' + 'PrewittX' + str(count) + '.jpg'),
-        #               (feobj2.getPrewittVerticalEdgeImg(), 'PrewittY' + str(count), 'results/testset/' + str(count) + '/' + 'PrewittY' + str(count) + '.jpg'),
-        #               (feobj2.getCombinedPrewittImg(), 'PrewittIMG' + str(count), 'results/testset/' + str(count) + '/' + 'PrewittIMG' + str(count) + '.jpg'),
-        #               (feobj3.getGaussianBlurredImage(), 'gblurimg' + str(count), 'results/testset/' + str(count) + '/' + 'gblurimg' + str(count) + '.jpg'),
-        #               (feobj3.getSelectedContourImg(), 'slccntimg' + str(count), 'results/testset/' + str(count) + '/' + 'slccntimg' + str(count) + '.jpg'),
-        #               (feobj3.getBoundingRectImg(), 'bndrectimg' + str(count), 'results/testset/' + str(count) + '/' + 'bndrectimg' + str(count) + '.jpg'),
-        #               (feobj3.getBoundedCircImg(), 'bndcircimg' + str(count), 'results/testset/' + str(count) + '/' + 'bndcircimg' + str(count) + '.jpg')])
+        __showImages([(obj.getActImg(), 'imgcol' + str(count), 'results/testset/' + str(count) + '/' + 'imgcol' + str(count) + '.jpg'),
+                      (obj.getGrayImg(), 'imggray' + str(count), 'results/testset/' + str(count) + '/' + 'imggray' + str(count) + '.jpg'),
+                      (obj.getInvrtGrayImg(), 'imggrayinvrt' + str(count), 'results/testset/' + str(count) + '/' + 'imggrayinvrt' + str(count) + '.jpg'),
+                      (obj.getBinaryImg(), 'imgbin' + str(count), 'results/testset/' + str(count) + '/' + 'imgbin' + str(count) + '.jpg'),
+                      (obj.getSegColImg(), 'segimgcol' + str(count), 'results/testset/' + str(count) + '/' + 'segimgcol' + str(count) + '.jpg'),
+                      (obj.getSegGrayImg(), 'segimggray' + str(count), 'results/testset/' + str(count) + '/' + 'segimggray' + str(count) + '.jpg'),
+                      (feobj2.getPrewittHorizontalEdgeImg(), 'PrewittX' + str(count), 'results/testset/' + str(count) + '/' + 'PrewittX' + str(count) + '.jpg'),
+                      (feobj2.getPrewittVerticalEdgeImg(), 'PrewittY' + str(count), 'results/testset/' + str(count) + '/' + 'PrewittY' + str(count) + '.jpg'),
+                      (feobj2.getCombinedPrewittImg(), 'PrewittIMG' + str(count), 'results/testset/' + str(count) + '/' + 'PrewittIMG' + str(count) + '.jpg'),
+                      (feobj3.getGaussianBlurredImage(), 'gblurimg' + str(count), 'results/testset/' + str(count) + '/' + 'gblurimg' + str(count) + '.jpg'),
+                      (feobj3.getSelectedContourImg(), 'slccntimg' + str(count), 'results/testset/' + str(count) + '/' + 'slccntimg' + str(count) + '.jpg'),
+                      (feobj3.getBoundingRectImg(), 'bndrectimg' + str(count), 'results/testset/' + str(count) + '/' + 'bndrectimg' + str(count) + '.jpg'),
+                      (feobj3.getBoundedCircImg(), 'bndcircimg' + str(count), 'results/testset/' + str(count) + '/' + 'bndcircimg' + str(count) + '.jpg')])
         featarr = np.empty(0, dtype=float, order='C')
         featarr = np.insert(featarr, featarr.size, feobj.getAngularSecondMomentASM(), 0)
         featarr = np.insert(featarr, featarr.size, feobj.getEnergy(), 0)
@@ -258,14 +249,27 @@ def __convertTargetTypeToStr(arr):
     cvt_arr = np.empty((arr.size,), object, 'C')
     for i in range(0, arr.size, 1):
         if (int(np.round(arr[i])) >= 1):
-            cvt_arr[i] = 'malignant'
+           cvt_arr[i] = 'malignant'
         elif (int(np.round(arr[i])) <= -1):
-            cvt_arr[i] = 'negative'
+           cvt_arr[i] = 'negative'
         elif (int(np.round(arr[i])) == 0):
-            cvt_arr[i] = 'benign'
+           cvt_arr[i] = 'benign'
         else:
             pass
     return cvt_arr
+
+def __formatResult(arr):
+    result = ""
+    for i in range(0, arr.size, 1):
+        if (int(np.round(arr[i])) >= 1):
+           result = "malignant"
+        elif (int(np.round(arr[i])) <= -1):
+           result = "negative"
+        elif (int(np.round(arr[i])) == 0):
+           result = "benign"
+        else:
+            pass
+    return result
 
 def __predictFromSavedTestCase():
     clasfobj = CLF.Classifiers(path='mlmodels/')
@@ -289,6 +293,85 @@ def __printPredResWithProperFormatting(predres, type=None):
         print("FOR SVM - \n Prediction results (String) : " + str(__convertTargetTypeToStr((predres['SVM'])['Prediction Results'])) + " \n Prediction results (raw) : " + str((predres['SVM'])['Prediction Results']) + " \n Prediction Accuracy : " + str((predres['SVM'])['Accuracy'] * 100) + "\n")
     elif (type == 'RFC'):
         print("FOR RFC - \n Prediction results (String) : " + str(__convertTargetTypeToStr((predres['RFC'])['Prediction Results'])) + " \n Prediction results (raw) : " + str((predres['RFC'])['Prediction Results']) + " \n Prediction Accuracy : " + str((predres['RFC'])['Accuracy'] * 100) + "\n")
+
+# def __showGLCM(feobj):
+#     print(feobj.getGLCM())
+
+# def __showHaralickFeatures(feobj):
+#     print("->.->.->.->.->.->.->.->.->.HARALICK TEXTURE FEATURES.<-.<-.<-.<-.<-.<-.<-.<-.<- \n")
+#     __showGLCM(feobj)
+#     print("\n")
+#     print("Angular Second Moment-ASM of seg gray img %f \n" % feobj.getAngularSecondMomentASM())
+#     print("Energy of seg gray img %f \n" % feobj.getEnergy())
+#     print("Entropy of seg gray img %f \n" % feobj.getEntropy())
+#     print("Contrast of seg gray img %f \n" % feobj.getContrast())
+#     print("Homogeneity of seg gray img %f \n" % feobj.getHomogeneity())
+#     print("Directional-Moment of seg gray img %f \n" % feobj.getDm())
+#     print("Correlation of seg gray img %f \n" % feobj.getCorrelation())
+#     print("Haralick-Correlation of seg gray img %f \n" % feobj.getHarCorrelation())
+#     print("Cluster-Shade of seg gray img %f \n" % feobj.getClusterShade())
+#     print("Cluster-Prominence of seg gray img %f \n" % feobj.getClusterProminence())
+#     print("Moment1 of seg gray img %f \n" % feobj.getMoment1())
+#     print("Moment2 of seg gray img %f \n" % feobj.getMoment2())
+#     print("Moment3 of seg gray img %f \n" % feobj.getMoment3())
+#     print("Moment4 of seg gray img %f \n" % feobj.getMoment4())
+#     print("Differential-ASM of seg gray img %f \n" % feobj.getDasm())
+#     print("Differential-Mean of seg gray img %f \n" % feobj.getDmean())
+#     print("Differential-Entropy of seg gray img %f \n" % feobj.getDentropy())
+
+# def __showTamuraFeatures(feobj2):
+#     print("->.->.->.->.->.->.->.->.->.TAMURA TEXTURE FEATURES.<-.<-.<-.<-.<-.<-.<-.<-.<- \n")
+#     print("Tamura-Coarseness of seg gray img %f \n" % feobj2.getCoarseness())
+#     print("Tamura-Contrast of seg gray img %f \n" % feobj2.getContrast())
+#     print("Tamura-Kurtosis of seg gray img %f \n" % feobj2.getKurtosis())
+#     print("Tamura-LineLikeness of seg gray img %f \n" % feobj2.getLineLikeness())
+#     print("Tamura-Directionality of seg gray img %f \n" % feobj2.getDirectionality())
+#     print("Tamura-Regularity of seg gray img %f \n" % feobj2.getRegularity())
+#     print("Tamura-Roughness of seg gray img %f \n" % feobj2.getRoughness())
+
+# def __showKingsFeatures(feobj4):
+#     print("->.->.->.->.->.->.->.->.->.KING'S TEXTURE FEATURES.<-.<-.<-.<-.<-.<-.<-.<-.<- \n")
+#     print("\n")
+#     print(feobj4.getNGTDM())
+#     print("\n")
+#     print("King's-Coarseness of seg gray img %f \n" % feobj4.getKingsCoarseness())
+#     print("King's-Contrast of seg gray img %f \n" % feobj4.getKingsContrast())
+#     print("King's-Busyness of seg gray img %f \n" % feobj4.getKingsBusyness())
+#     print("King's-Complexity of seg gray img %f \n" % feobj4.getKingsComplexity())
+#     print("King's-Strength of seg gray img %f \n" % feobj4.getKingsStrength())
+
+# def __showGaborPhysicalFeatures(feobj3):
+#     print("->.->.->.->.->.->.->.->.->.GABOR PHYSICAL FEATURES OF LESION.<-.<-.<-.<-.<-.<-.<-.<-.<- \n")
+#     print("List of Contour-Points ::: \n")
+#     print(feobj3.getListOfContourPoints())
+#     print("\n")
+#     print("Hierarchy of extracted contours ::: \n")
+#     print(feobj3.getHierarchyOfContours())
+#     print("\n")
+#     print("List of moments for corresponding-contours ::: \n")
+#     print(feobj3.getListOfMomentsForCorrespondingContours())
+#     print("\n")
+#     print("List of centroids for corresponding-contours ::: \n")
+#     print(feobj3.getListOfCentroidsForCorrespondingContours())
+#     print("\n")
+#     print("List of areas for corresponding-contours ::: \n")
+#     print(feobj3.getListOfAreasForCorrespondingContours())
+#     print("\n")
+#     print("List of perimeters for corresponding-contours ::: \n")
+#     print(feobj3.getListOfPerimetersForCorrespondingContours())
+#     print("\n")
+#     print("Mean_Edge of covering rectangle for lesion img %f \n" % feobj3.getMeanEdgeOfCoveringRect())
+#     print("Bounded_Circle radius %f \n" % feobj3.getBoundedCircRadius())
+#     print("Asymmetry-Index of lesion %f \n" % feobj3.getAsymmetryIndex())
+#     print("Compact-Index of lesion %f \n" % feobj3.getCompactIndex())
+#     print("Fractal-Dimension of lesion %f \n" % feobj3.getFractalDimension())
+#     print("Diameter of lesion %f \n" % feobj3.getDiameter())
+#     print("Color-Variance of lesion %f \n" % feobj3.getColorVariance())
+
+def predictType():
+    __generateFeatSetWImgs()           
+    predres = __predictFromGenFeatSet()
+    return (str(__formatResult((predres['RFC'])['Prediction Results'])))
 
 def main_menu():
     print("_______WELCOME TO THE MELANOMA-PREDICTION PROGRAM_______ \n")
