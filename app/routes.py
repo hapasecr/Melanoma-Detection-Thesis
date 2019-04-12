@@ -14,7 +14,7 @@ def allowed_file(filename):
 
 @app.route('/')
 def index():
-    information = {'username':'Chaitanya'}
+    information = {}
     return render_template('index.html', title='Home', information=information)
 
 @app.route('/uploadFile', methods=['GET','POST'])
