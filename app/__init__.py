@@ -4,7 +4,7 @@ from config import Config
 from werkzeug.utils import secure_filename
 
 UPLOAD_FOLDER = './ip'
-STATIC_FOLDER = '/static'
+STATIC_FOLDER = './app/static'
 
 app = Flask(__name__, static_url_path=STATIC_FOLDER)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
