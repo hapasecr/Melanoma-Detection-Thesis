@@ -1,12 +1,17 @@
-FROM python:3.6-alpine
+FROM python:3.7-alpine
 
 RUN adduser -D melanomadetector
 
 WORKDIR /home/melanomadetector
 
+RUN apk --no-cache --update-cache add gcc gfortran python python-dev py-pip build-base wget freetype-dev libpng-dev openblas-dev
+RUN ln -s /usr/include/locale.h /usr/include/xlocale.h
+
 COPY requirements.txt requirements.txt
 RUN python -m venv venv
-RUN venv/bin/pip install -r requirements.txt
+RUN venv/bin/pip install --upgrade pip setuptools 
+RUN venv/bin/pip3 install --no-cache-dir -r requirements.txt
+# RUN venv/bin/pip install numpy==1.14.3
 
 COPY app app
 COPY appMain.py config.py ./
