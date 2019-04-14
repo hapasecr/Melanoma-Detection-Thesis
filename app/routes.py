@@ -1,5 +1,5 @@
 from flask import render_template, send_from_directory, request, \
-   redirect, url_for, flash
+   redirect, url_for, flash, send_file
 from app import app
 import os
 import sys
@@ -33,5 +33,5 @@ def upload_file():
          filename = "0.jpg"
          file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
          information = {'result':internalApp.predictType()}
-         return render_template('index.html', title='Home', information=information)
+         return render_template('results.html', title='Result', information=information)
    return render_template('uploadFile.html', title='Upload Image')

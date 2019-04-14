@@ -10,6 +10,7 @@ from featext.texture import King as k
 from featext.physical import Gabor as g
 from mlmodels import Classifiers as CLF
 from mlmodels import DecisionSurfacePlotter as DSP
+import time
 
 imgcount = 0
 
@@ -17,6 +18,7 @@ imgcount = 0
 A Generic Show Image function which shows the different type of pre-processed set of images for a particular test-image
 '''
 def __showImages(lstofimgs):
+    print("Generating feature images")
     for tpls in lstofimgs:
         # cv2.namedWindow(tpls[1], cv2.WINDOW_NORMAL)
         # cv2.imshow(tpls[1], tpls[0])
@@ -24,8 +26,9 @@ def __showImages(lstofimgs):
             cv2.imwrite(tpls[2], tpls[0])
         else:
             continue
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
+    # cv2.waitKey(0)
+    # cv2.destroyAllWindows()
+    print("Feature images generated")
 
 '''
 Creating Training Sets from a collection of various skin-lesion images placed in their respective
@@ -170,12 +173,14 @@ def __generateFeatSetWImgs():
     featnames = np.array(['ASM', 'ENERGY', 'ENTROPY', 'CONTRAST', 'HOMOGENEITY', 'DM', 'CORRELATION', 'HAR-CORRELATION', 'CLUSTER-SHADE', 'CLUSTER-PROMINENCE', 'MOMENT-1', 'MOMENT-2', 'MOMENT-3', 'MOMENT-4', 'DASM', 'DMEAN', 'DENTROPY', 'TAM-COARSENESS', 'TAM-CONTRAST', 'TAM-KURTOSIS', 'TAM-LINELIKENESS', 'TAM-DIRECTIONALITY', 'TAM-REGULARITY', 'TAM-ROUGHNESS', 'ASYMMETRY-INDEX', 'COMPACT-INDEX', 'FRACTAL-DIMENSION', 'DIAMETER', 'COLOR-VARIANCE', 'KINGS-COARSENESS', 'KINGS-CONTRAST', 'KINGS-BUSYNESS', 'KINGS-COMPLEXITY', 'KINGS-STRENGTH'], dtype=object, order='C')
     try:
         shutil.rmtree('results/op')
-        print("Removed Older op folder")
+        print("Found previous output folder.")
+        print("Removed previous output folder")
     except OSError as e:
-        print ("Creating op folder")
+        print("No output folder found")
     os.makedirs('results/op')
+    print("Created new output folder")
+    print("Generating Feature Set for the uploaded input Image")
     while(True):
-        print("Generating Feature Set for the Input Image")
         obj = p.Prep('ip/' + "0.jpg")
         feobj = har.HarFeat(obj.getSegGrayImg())
         feobj2 = tam.TamFeat(obj.getSegGrayImg())
@@ -194,6 +199,7 @@ def __generateFeatSetWImgs():
                         (feobj3.getSelectedContourImg(), 'slccntimg', 'results/op/'+ 'slccntimg' + '.jpg'),
                         (feobj3.getBoundingRectImg(), 'bndrectimg', 'results/op/'+ 'bndrectimg' + '.jpg'),
                         (feobj3.getBoundedCircImg(), 'bndcircimg', 'results/op/'+ 'bndcircimg' + '.jpg')])
+        print("Generating features numpy array")
         featarr = np.empty(0, dtype=float, order='C')
         featarr = np.insert(featarr, featarr.size, feobj.getAngularSecondMomentASM(), 0)
         featarr = np.insert(featarr, featarr.size, feobj.getEnergy(), 0)
@@ -232,7 +238,7 @@ def __generateFeatSetWImgs():
         dset = np.insert(dset, dset.size, (featarr, str("negative")), 0)        
         break;
     np.savez('finalcase', dset=dset, featnames=featnames)
-
+    print("Generating Feature Set Complete")
 
 def __convertTargetTypeToInt(arr):
     cvt_arr = np.zeros((arr.size,), int, 'C')
@@ -283,9 +289,9 @@ def __predictFromSavedTestCase():
 def __predictFromGenFeatSet():
     clasfobj = CLF.Classifiers(path='mlmodels/')
     dset = (np.load('finalcase.npz'))['dset']
-    print("\n")
-    print("Now predicting results for the input image: \n \n")
+    print("Now predicting results for the input image")
     pred_res = clasfobj.predictForSingleImage(dset['featureset'])
+    print("Succesully predicted results")
     return pred_res
 
 def __printPredResWithProperFormatting(predres, type=None):
@@ -369,9 +375,25 @@ def __printPredResWithProperFormatting(predres, type=None):
 #     print("Color-Variance of lesion %f \n" % feobj3.getColorVariance())
 
 def predictType():
-    __generateFeatSetWImgs()           
+    t = time.time()
+    __generateFeatSetWImgs()
     predres = __predictFromGenFeatSet()
+    print("Prediction time : %f secs" % (time.time() - t))
+    __moveImagesToStatic()           
     return (str(__formatResult((predres['RFC'])['Prediction Results'])))
+
+def __moveImagesToStatic():
+    print("Moving images to static folder")
+    try:
+        shutil.rmtree('app/static')
+        print("Found previous static folder.")
+        print("Removed previous static folder")
+    except OSError as e:
+        print("No output folder found")
+    os.makedirs('app/static')
+    shutil.copy('results/op/segimgcol.jpg','app/static/1.jpg')
+    shutil.copy('ip/0.jpg','app/static/0.jpg')
+    print("Moving Complete")
 
 def main_menu():
     print("_______WELCOME TO THE MELANOMA-PREDICTION PROGRAM_______ \n")
