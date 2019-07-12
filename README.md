@@ -1,4 +1,4 @@
-# MELANOMA-DETECTION  
+# MELANOMA DETECTION using a Cloud Based Machine Learning Application 
 ###### What is Melanoma?  
 **_'Melanoma'_**, also known as **_'Malignant_Melanoma'_**, is a type
 of cancer that develops from the pigment-containing cells known
@@ -12,85 +12,70 @@ sources, such as tanning devices. About 25% develop from moles.
 
 ## About the repository -  
 This repo holds the source code for the Melanoma-Detection Application.
-Given below is the _'Project Structure'_ :  
-  
-    .
-    |   Main.py
-    |   dataset.npz
-    |   testcase.npz
-    |   README.md
-    |---featext
-    |     |---physical
-    |     |     |   __init__.py
-    |     |     |   Gabor.py
-    |     |---texture
-    |     |     |   __init__.py
-    |     |     |   Haralick.py
-    |     |     |   King.py
-    |     |     |   Tamura.py
-    |     |   __init__.py
-    |---images
-    |     |---benign
-    |     |     |   'img_number'.jpg
-    |     |---malignant
-    |     |     |   'img_number'.jpg
-    |     |---negative
-    |     |     |   'img_number'.jpg
-    |---mlmodels
-    |     |   Classifiers.py
-    |     |   DecisionSurfacePlotter.py
-    |     |   Mel_DTC.pkl
-    |     |   Mel_DTR.pkl
-    |     |   Mel_LinSVM.pkl
-    |     |   Mel_LinSVR.pkl
-    |     |   Mel_MLPC.pkl
-    |     |   Mel_MLPR.pkl
-    |     |   Mel_NuSVM.pkl
-    |     |   Mel_NuSVR.pkl
-    |     |   Mel_RFC.pkl
-    |     |   Mel_RFR.pkl
-    |     |   Mel_SVM.pkl
-    |     |   Mel_SVR.pkl
-    |     |   __init__.py
-    |---preprocessing
-    |     |   Prep.py
-    |     |   __init__.py
-    |---results
-    |     |---dataset
-    |     |     |---benign
-    |     |     |     |---'numbers'
-    |     |     |     |     |   'images'.jpg
-    |     |     |---malignant
-    |     |     |     |---'numbers'
-    |     |     |     |     |    'images'.jpg
-    |     |     |---negative
-    |     |     |     |---'numbers'
-    |     |     |     |     |    'images'.jpg
-    |     |---testset
-    |     |     |---benign
-    |     |     |     |---'numbers'
-    |     |     |     |     |   'images'.jpg
-    |     |     |---malignant
-    |     |     |     |---'numbers'
-    |     |     |     |     |    'images'.jpg
-    |     |     |---negative
-    |     |     |     |---'numbers'
-    |     |     |     |     |    'images'.jpg
-    |---temp
-    |     |   'img_number'.jpg
-    |---test
-    |     |   'img_number'.jpg
-    |---util
-          |   Util.py
-          |   __init__.py
+.
+├── LICENSE
+├── Main.py
+├── README.md
+├── _Main.py
+├── __pycache__
+├── app
+│   ├── __init__.py
+│   ├── __pycache__
+│   ├── routes.py
+│   ├── static
+│   └── templates
+├── appMain.py
+├── application.py
+├── config.py
+├── dataset.npz
+├── featext
+│   ├── __init__.py
+│   ├── __pycache__
+│   │   └── __init__.cpython-37.pyc
+│   ├── physical
+│   │   ├── Gabor.py
+│   │   ├── __init__.py
+│   │   └── __pycache__
+│   └── texture
+│       ├── Haralick.py
+│       ├── King.py
+│       ├── Tamura.py
+│       ├── __init__.py
+│       └── __pycache__
+├── finalcase.npz
+├── images
+│   ├── benign
+│   ├── malignant
+│   └── negative
+├── ip
+├── mlmodels
+│   ├── Classifiers.py
+│   ├── DecisionSurfacePlotter.py
+│   ├── Mel_RFC.pkl
+│   ├── Mel_SVM.pkl
+│   ├── __init__.py
+│   └── __pycache__
+├── preprocessing
+│   ├── Prep.py
+│   ├── __init__.py
+│   └── __pycache__
+├── requirements.txt
+├── results
+│   ├── dataset
+│   │   ├── benign
+│   │   ├── malignant
+│   │   └── negative
+│   ├── op
+│   └── testset
+├── setup_venv.sh
+├── temp
+├── testcase.npz
+└── util
+    ├── Util.py
+    ├── __init__.py
+    └── __pycache__
 
-
-## About The Application -  
-This application does not contain any fancy _UI_, as it is basically a
-modular console program, written in Python3. Anyone, with some basic
-programming knowledge will be able to run this app easily.  
-Simply, this console app tries to predict the nature of a 'skin-lesion'
-image, served as an input.  
+## About The Application -   
 To keep things simple, we have trained our machine-learning models, to
 classify the input image as one of the three types:  
    + **NEGATIVE** - Represents a skin-lesion that is not melanoma._(-1)_  
@@ -109,18 +94,9 @@ The application consists of five core modules, namely:
    3. **mlmodels**  (input_image classification/regression module).  
       + _Classifiers.py_  (Predicts the class of the input_image).  
       + _DecisionSurfacePlotter.py_  (Plots the decision surfaces of the various classifiers/regressors, based on the selected features).  
-      + _Mel_DTC.pkl_  (Persistently stores the trained 'Decision Tree Classifier' object).  
-      + _Mel_DTR.pkl_  (Persistently stores the trained 'Decision Tree Regressor' object).  
-      + _Mel_LinSVM.pkl_  (Persistently stores the trained 'Linear-Support Vector Machine Classifier' object).  
-      + _Mel_LinSVR.pkl_  (Persistently stores the trained 'Linear-Support Vector Machine Regressor' object).  
-      + _Mel_MLPC.pkl_  (Persistently stores the trained 'Multi-Layer Perceptron Classifier' object).  
-      + _Mel_MLPR.pkl_  (Persistently stores the trained 'Multi-Layer Perceptron Regressor' object).  
-      + _Mel_NuSVM.pkl_  (Persistently stores the trained 'Nu-Support Vector Machine Classifier' object).  
-      + _Mel_NuSVR.pkl_  (Persistently stores the trained 'Nu-Support Vector Machine Regressor' object).   
+      + _Mel_DTC.pkl_  (Persistently stores the trained 'Decision Tree Classifier' object). 
       + _Mel_RFC.pkl_  (Persistently stores the trained 'Random Forest Classifier' object).  
-      + _Mel_RFR.pkl_  (Persistently stores the trained 'Random Forest Regressor' object).  
       + _Mel_SVM.pkl_  (Persistently stores the trained 'Support Vector Machine Classifier' object).  
-      + _Mel_SVR.pkl_  (Persistently stores the trained 'Support Vector Machine Regressor' object).  
    4. **preprocessing**  (input_image preprocessing module).  
       + _Prep.py_  (Performs generic image pre-processing operations).  
    5. **util**  (General library utility module).  
@@ -128,22 +104,27 @@ The application consists of five core modules, namely:
 
 
 ## How the application works?  
+The application is deployed on two clouds - AWS Elastic Beanstalk and DigitalOcean.
+1. AWS EB handles the Prediction phase of the application whereas DigitalOcean handles the Training phase of the application.
+2. AWS was chosen due to it's maximum timeout being approx. 30 minutes. DigitalOcean was chosen due to it's CPU intensive droplets which accelerated the training of the ML algorithms.
+
 This application works in the following folds :  
 1.  Firstly, a 'training-set' data is generated from a collection of various skin-lesion images placed in their respective  
     class folders i.e., _'images/benign'_, _'images/malignant'_, _'images/negative'_. These images are pre-processed and  
     a set of quantified-features are extracted from them, which comprises the 'training-set' data.  
 2.  Next, the above generated training data, is then passed on to the various classifier/regressor objects for training/learning.  
 3.  Now, the trained models are persistently saved as python objects or pickle units, in individual '.pkl' files.  
-4.  Next, a set of input_images in need of classification are placed in the _'temp'_ folder.  
-5.  Next, the program takes each input_image pre-processes it and extracts the necessary features from it.  
-6.  The features generated from the pre-processed input_images are then passed on to the various  
-    machine-learning models,which in turn predicts the nature of each input_image accordingly.  
-7.  Since, the learning process here is supervised, a 'prediction-accuracy' is generated for each model.  
-8.  Finally, the results from the model with the highest 'prediction-accuracy' are selected.  
-
+4.  Next, an input image is uploaded on the webapp. 
+5.  Next, the application takes this input_image, pre-processes it and extracts the necessary features from it.  
+6.  The features generated from the pre-processed input_image are then passed on to the various  
+    machine-learning models,which in turn predicts the nature of this input_image accordingly.  
+7.  Since, the learning process here is supervised, a 'prediction-accuracy' is generated for each model.
+8.  Finally, the result with various segmented images is shown on the web app.
 
 ## Usage guide -  
 ### _Pre-requisites_ :  
+You can refer the requirements.txt document from the project to get a list of dependencies. For detailed information, please have a look below.
+
 1. **Python3** ;  
        []  _About 'Python3'_ :point_right: [wikipedia.org/PythonProgrammingLanguage](https://en.wikipedia.org/wiki/Python_(programming_language)).  
        []  _How to install 'Python3'?_ :point_right: [python.org/BeginnersGuide](https://wiki.python.org/moin/BeginnersGuide/Download).  
@@ -188,59 +169,11 @@ This application works in the following folds :
         []  _Official 'scikit-learn' documentation_ :point_right: [scikit-learn.org/docs](http://scikit-learn.org/stable/documentation.html).  
         (**Note.-** For installing _Scikit-Learn_ through pip, type `python -m pip --user install sklearn`.)  
 
-### _Running the Application_ :  
-* Before you download this application, make sure you have installed 'Python3' along with the dependency modules.  
-* If you are using any integrated development environment like 'PyCharm', you can simply clone this repository to your  
-  project directory, using the git-commandline tools, just type `git clone https://github.com/Tejas07PSK/Melanoma-Detection.git`.  
-* As this a 'console/commandline/terminal' application you can simply download this repository as `Melanoma-Detection.zip`  
-  compressed file and then extract it accordingly. Now, navigate to the extracted folder in terminal  
-  and then run this program by typing `python Main.py`.  
-* As you run this application, you will be greeted with the following text as shown in the screenshot.  
-  ![Screenshot-1](https://user-images.githubusercontent.com/29245625/43370268-8dd88c00-9399-11e8-9819-803ecfe350ce.png)  
-* Now, if you select option **_'1'_**, you will go through the following phases as shown in the screenshots.  
-  ![Screenshot-2](https://user-images.githubusercontent.com/29245625/43410171-9edabb4a-9443-11e8-8fa9-d03b129d8b70.png)  
-  ![Screenshot-3](https://user-images.githubusercontent.com/29245625/43410312-19338d36-9444-11e8-9acc-d9802badbc8e.png)  
-  ![Screenshot-4](https://user-images.githubusercontent.com/29245625/43415670-d6bec4b0-9453-11e8-845e-e2b76d368d7d.png)  
-  ![Screenshot-5](https://user-images.githubusercontent.com/29245625/43416632-7c6ea3c4-9456-11e8-8f16-012a83780e21.png)  
-  ![Screenshot-6](https://user-images.githubusercontent.com/29245625/43417829-b8a87a10-9459-11e8-8bb1-ede7aa7efb6f.png)  
-  ![Screenshot-7](https://user-images.githubusercontent.com/29245625/43418479-a267ae54-945b-11e8-9f6f-833ebf3b4422.png)  
-  ![Screenshot-8](https://user-images.githubusercontent.com/29245625/43418558-e209842e-945b-11e8-952f-bfd21c9d9b3f.png)  
-* Next, if you select option **_'2'_**, you will get the following output as shown in the screenshot.  
-  ![Screenshot-9](https://user-images.githubusercontent.com/29245625/43418835-d82d5ccc-945c-11e8-9654-5236dd32e7b2.png)  
-* Next, if you select option **_'3'_**, the operation phase will be very similar to option **_'1'**, as shown in the following screenshots.  
-  ![Screenshot-10](https://user-images.githubusercontent.com/29245625/43420229-caf2edd4-9460-11e8-9529-d555f554e60e.png)  
-  ![Screenshot-11](https://user-images.githubusercontent.com/29245625/43420753-643ee6ea-9462-11e8-986e-5327a462db2c.png)  
-  ![Screenshot-12](https://user-images.githubusercontent.com/29245625/43421789-63163c66-9465-11e8-8542-57a60765b055.png)  
-* Next, if you select option **_'7'_**, the existing ml-models will be iteratively trained with the new test-images  
-  placed in the _'/temp'_ folder, look at this screenshot.  
-  ![Screenshot-13](https://user-images.githubusercontent.com/29245625/43423442-1552a118-946a-11e8-9de1-8f3565544a48.png)  
-* Now, if you select option **_'5'_**, you will get the following output, as shown in the screenshots.  
-  ![Screenshot-14](https://user-images.githubusercontent.com/29245625/43424125-fd8b8782-946b-11e8-99d3-71e5c2c5531e.png)  
-  ![Screenshot-15](https://user-images.githubusercontent.com/29245625/43424211-357f7126-946c-11e8-8d49-d9761016c063.png)  
-* If you select option **_'8'_**, you'll get the following output as shown in the screenshots.  
-  ![Screenshot-16](https://user-images.githubusercontent.com/29245625/43424458-2638c41e-946d-11e8-9557-f693a9a1c355.png)  
-  ![Screenshot-17](https://user-images.githubusercontent.com/29245625/43424749-02550886-946e-11e8-9901-a996376f569c.png)  
-  ![Screenshot-18](https://user-images.githubusercontent.com/29245625/43424807-26170bb6-946e-11e8-92d8-477912d0b5c3.png)  
-* Option **_'9'_** is used for getting a list of files present in any valid project directory, look at the screenshot.  
-  ![Screenshot-19](https://user-images.githubusercontent.com/29245625/43424995-d9a94a18-946e-11e8-8906-5fcfb9dba059.png)  
-* Option **_'6'_** is used for plotting the decision-surfaces of the various classifiers/regressors as shown below in the screeenshots.  
-  ![Screenshot-20](https://user-images.githubusercontent.com/29245625/43425489-62e3dd7e-9470-11e8-8dde-563a697cefd4.png)  
-  ![Screenshot-21](https://user-images.githubusercontent.com/29245625/43425542-88789eda-9470-11e8-87b9-70877ec195e7.png)  
-  ![Screenshot-22](https://user-images.githubusercontent.com/29245625/43425571-a94d18d4-9470-11e8-8e1d-a2724f23897c.png)  
-  ![Screenshot-23](https://user-images.githubusercontent.com/29245625/43425571-a94d18d4-9470-11e8-8e1d-a2724f23897c.png)  
-  ![Screenshot-24](https://user-images.githubusercontent.com/29245625/43425636-d8a888f2-9470-11e8-8ed8-5dcb9c25e6a9.png)  
-  ![Screenshot-25](https://user-images.githubusercontent.com/29245625/43425662-f2a74950-9470-11e8-89ae-5bbe57575d1c.png)  
-* Option **_'4'_** is used for classifying the types of the input-images. For explanation we have considered the following  
-  input images,  
-  ![Inp_Img-0](temp/0.jpg) ![Inp_Img-1](temp/1.jpg) ![Inp_Img-2](temp/2.jpg) ![Inp_Img-3](temp/3.jpg) ![Inp_Img-4](temp/4.jpg) ![Inp_Img-5](temp/5.jpg)  
-  ![Inp_Img-6](temp/6.jpg) ![Inp_Img-7](temp/7.jpg) ![Inp_Img-8](temp/8.jpg) ![Inp_Img-9](temp/9.jpg) ![Inp_Img-10](temp/10.jpg) ![Inp_Img-11](temp/11.jpg),  
-  now look at the screenshots.  
-  ![Screenshot-26](https://user-images.githubusercontent.com/29245625/43426733-5f4872ca-9474-11e8-96b9-281e24b50089.png)  
-  ![Screenshot-27](https://user-images.githubusercontent.com/29245625/43426807-ab9017aa-9474-11e8-8a9b-8a1008e27f78.png)  
-* Option **_'10'_** is used for displaying the 'R-G-B' color-plates of a selected color-image, as shown in the screenshots.  
-  ![Screenshot-28](https://user-images.githubusercontent.com/29245625/43484781-f28ba292-952c-11e8-9c23-03c01e04db3e.png)  
-  ![Screenshot-29](https://user-images.githubusercontent.com/29245625/43484807-06133186-952d-11e8-9d07-36ed71b0d557.png)  
-  
+### _Running the Application_ :
+1. Install Virtual Environment on your machine and create a virtual environment for this project.
+2. Clone this project and install the dependencies using the requirements.txt file.
+3. Setup flask and run a flask configuration to bring up the server.
+4. Run the application by executing the appMain.py file.
   
 ## About the core functionalities -  
 ### Pre-processing :  
@@ -354,14 +287,6 @@ with associated learning algorithms that analyze data used for classification an
 (More articles regarding SVMs can be found here,  
 :point_right: [wikipedia.org/SVM](https://en.wikipedia.org/wiki/Support_vector_machine).  
 :point_right: [scikit-learn.org/SVM](http://scikit-learn.org/stable/modules/svm.html).)  
-+ **_Multi Layer Perceptron(MLP or Neural-Network) classifier/regressor_** ;  
-A multilayer perceptron (MLP) is a class of feedforward artificial neural network. An MLP consists of at 
-least three layers of nodes. Except for the input nodes, each node is a neuron that uses a 
-nonlinear activation function.  
-(More articles regarding MLPs and Neural-Networks can be found here,  
-:point_right: [wikipedia.org/MLP](https://en.wikipedia.org/wiki/Multilayer_perceptron).  
-:point_right: [wikipedia.org/ANN](https://en.wikipedia.org/wiki/Artificial_neural_network).  
-:point_right: [scikit-learn.org/MLP](http://scikit-learn.org/stable/modules/neural_networks_supervised.html).)  
 + **_Decision Tree(DT) classifier/regressor_** ;  
 Decision tree learning uses a decision tree (as a predictive model) to go from observations about 
 an item (represented in the branches) to conclusions about the item's target value (represented in the leaves). 
@@ -379,8 +304,8 @@ correct for decision trees' habit of over-fitting to their training set.
 :point_right: [scikit-learn.org/RF](http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html).)  
 
 By default, this application outputs the result of the learning model having the highest prediction accuracy. In our experimental 
-case of 30 training-images and 12 prediction-images, the **_'Random Forest Classifier(RFC)'_** gave the best results with an accuracy 
-of **91.66%**.  
+case of 70 training-images and 12 prediction-images, the **_'Random Forest Classifier(RFC)'_** gave the best results with an accuracy 
+of **83.33%**.  
 
 
 ## API Guide -  
@@ -710,17 +635,9 @@ of **91.66%**.
 This application is still experimental and is moderately accurate in predicting the type of 
 skin-lesion, present in the image. However, on increasing the quantity of training-set images, the 
  prediction accuracy of the various machine-learning models used in this application, will 
- significantly increase. Now, most importantly before you start using this application use 
- _option-'2'_ first, if you want to test the default experimental data or else the '.pkl' files 
- might generate some error based on your system architecture. Lastly, it is recommended that for 
- testing purposes, you use images with smaller dimensions, preferably _'120x120'_ pixels.  
+ significantly increase. Lastly, it is recommended that for 
+ testing purposes, you use images with smaller dimensions, preferably _'120x120'_ pixels or
+ images of the size < 10 KB.  
  **Good-Luck!!!** :wink:  
  
-# []()  
-###### ____----Made with----____  
-![Python3](https://user-images.githubusercontent.com/29245625/43864317-0358aeb6-9b7d-11e8-9616-121cbaa17f5a.jpg) 
-![OpenCV](https://user-images.githubusercontent.com/29245625/43864995-dc7ba652-9b7e-11e8-8402-e8416e8421ed.jpg) 
-&nbsp; &nbsp; &nbsp; &nbsp; ![Scikit-Learn](https://user-images.githubusercontent.com/29245625/43865285-c87695c6-9b7f-11e8-8ea0-da7de21cb0fa.jpg) 
-&nbsp; &nbsp; &nbsp; &nbsp; ![NumPy](https://user-images.githubusercontent.com/29245625/43865961-c28d6494-9b81-11e8-862d-8ace3a859083.jpg)  
-![Matplotlib](https://user-images.githubusercontent.com/29245625/43866246-ae75adb2-9b82-11e8-84af-e5b619c1a4d0.jpg) 
-&nbsp; &nbsp; &nbsp; &nbsp; ![SciPy](https://user-images.githubusercontent.com/29245625/43866450-638cc8ca-9b83-11e8-92f7-44f5300a3c03.jpg)  
+# []()
