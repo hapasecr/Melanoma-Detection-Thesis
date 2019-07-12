@@ -11,7 +11,9 @@ sources, such as tanning devices. About 25% develop from moles.
 
 
 ## About the repository -  
-This repo holds the source code for the Melanoma-Detection Application.
+This repo holds the source code for the Melanoma-Detection Application:
+
+```
 .
 ├── LICENSE
 ├── Main.py
@@ -74,6 +76,7 @@ This repo holds the source code for the Melanoma-Detection Application.
     ├── Util.py
     ├── __init__.py
     └── __pycache__
+```
 
 ## About The Application -   
 To keep things simple, we have trained our machine-learning models, to
